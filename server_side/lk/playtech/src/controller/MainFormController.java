@@ -27,13 +27,16 @@ import java.net.Socket;
  * Time    : 5:08 PM
  */
 public class MainFormController {
+    //port
+    private static int port = 3000;
+
     @FXML
     public Button btnChangeStatus;
     @FXML
     public ImageView imgviewstatus;
+
     public Text txtstatus;
     Thread thread1;
-
     util.ServerSocket serverSocket;
     boolean isSocketCanUse = false;
 
@@ -45,7 +48,7 @@ public class MainFormController {
         if((btnChangeStatus.getText().equals("Start"))){  //check button shows start
             //create util's serversocket object
             serverSocket = new ServerSocket();
-            isSocketCanUse = serverSocket.initializeServerSocket(3000); //initialize port and return this port cam use or not
+            isSocketCanUse = serverSocket.initializeServerSocket(port); //initialize port and return this port cam use or not
             if(isSocketCanUse){
                 //notify gui
                 imgviewstatus.setImage(new Image("images/readytouseicon.png"));

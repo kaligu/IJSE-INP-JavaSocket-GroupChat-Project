@@ -6,11 +6,18 @@
 */
 package controller;
 
-import com.jfoenix.controls.JFXTextArea;
-import javafx.scene.control.Button;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import util.Client;
+
+import java.io.IOException;
+import java.net.Socket;
 
 /**
  * @author : H.C.Kaligu Jayanath
@@ -20,10 +27,52 @@ import javafx.scene.layout.VBox;
 public class ChatFormController {
 
     public VBox vboxpane;
+    public TextField txtfldgetname;
+    public TextArea txtareamsg;
+    public TextField txtfldmsg;
+    public Text txtsendername;
+    Client client;
+
 
     public void initialize(){
-//        Label label = new Label("ddd");
-//        label.setStyle("-fx-background-color: blue; -fx-border-radius: 60; -fx-background-radius: 60; -fx-text-fill: white; -fx-pref-width: 60; -fx-pref-height:20; -fx-translate-x: 50");
-//        vboxpane.getChildren().add(label);
+
+
+
+    }
+
+    public void txtfldmsgOnAction(ActionEvent actionEvent) {
+        String message = txtfldmsg.getText();
+
+        if (!message.isEmpty()) {
+            txtareamsg.appendText("me"+message);
+            txtfldmsg.clear();
+            client.clientSendMessage(message);
+//            textField.clear();
+        }
+    }
+
+    public static void receiveMessage(String message, VBox vBox){
+        HBox hBox = new HBox();
+        hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
+        Label messageLbl = new Label(message);
+        messageLbl.setStyle("-fx-background-color:   #2980b9;-fx-background-radius:15;-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
+        hBox.getChildren().add(messageLbl);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                vBox.getChildren().add(hBox);
+            }
+        });
+    }
+
+    public void btnjoinchat(ActionEvent actionEvent) {
+        txtsendername.setText(txtfldgetname.getText());
+        try {
+            client = new Client(new Socket("localhost",9000),txtfldgetname.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        client.listenForMessage(vboxpane);
+        client.clientSendMessage("");
     }
 }

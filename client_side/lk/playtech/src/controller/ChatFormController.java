@@ -18,13 +18,15 @@ import util.Client;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * @author : H.C.Kaligu Jayanath
  * Date    : 5/22/2023
  * Time    : 11:19 PM
  */
-public class ChatFormController {
+public class ChatFormController implements Observer {
 
     public VBox vboxpane;
     public TextField txtfldgetname;
@@ -85,5 +87,10 @@ public class ChatFormController {
         }
         client.listenForMessage(vboxpane);
         client.clientSendMessage("");
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }

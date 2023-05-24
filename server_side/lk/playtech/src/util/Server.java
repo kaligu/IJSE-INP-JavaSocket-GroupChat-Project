@@ -6,16 +6,12 @@
 */
 package util;
 
-import com.sun.media.jfxmedia.locator.ConnectionHolder;
 import javafx.scene.control.Alert;
+import util.impl.ClientConnecrion;
+import util.impl.ClientsHandler;
 
-import javax.print.DocFlavor;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.Socket;
-import java.util.ArrayList;
 
 /**
  * @author : H.C.Kaligu Jayanath
@@ -26,6 +22,7 @@ public class Server {
     private int port;
     private java.net.ServerSocket serverSocket;
     boolean bool;
+    ClientsObservable clientsObservable;
     //clients holding arraylist
 
     public Server() {
@@ -34,6 +31,7 @@ public class Server {
     public boolean initializeServerSocket(int port){
         this.port = port;
         try {
+            clientsObservable = new ClientsHandler();
             //create Server Socket
             bool=true;
             System.out.println("Server is start");
@@ -51,8 +49,14 @@ public class Server {
             try {
                 Socket socket = serverSocket.accept();
                 System.out.println("new Client Connected");
-                Thread thread = new Thread(new ClientHandler(socket));
+
+                Thread thread = new Thread(() -> {
+                    clientsObservable.addClient(new ClientConnecrion(socket));
+                })
+
+                ;
                 thread.start();
+
             } catch (IOException e) {
                 e.printStackTrace();
                 closeServerSocket();

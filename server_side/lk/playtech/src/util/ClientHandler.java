@@ -48,21 +48,25 @@ public class ClientHandler implements Runnable{
     }
 
     public void broadcastMessage(String sendingMessage) {
-        System.out.println("Sending Message : "+sendingMessage);
-        System.out.println(clientHandlers.size());
-        try {
-            for (ClientHandler clientHandler : clientHandlers) {
-                if (!clientHandler.userName.equals(userName)) {
-                    System.out.println(clientHandler.toString());
-                    clientHandler.bufferedWriter.write(sendingMessage);
-                    clientHandler.bufferedWriter.newLine();
-                    clientHandler.bufferedWriter.flush();
+        Thread thread = new Thread(() -> {
+            System.out.println("Sending Message : "+sendingMessage);
+            System.out.println(clientHandlers.size());
+            try {
+                for (ClientHandler clientHandler : clientHandlers) {
+                    if (!clientHandler.userName.equals(userName)) {
+                        System.out.println(clientHandler.toString());
+                        clientHandler.bufferedWriter.write(sendingMessage);
+                        clientHandler.bufferedWriter.newLine();
+                        clientHandler.bufferedWriter.flush();
+                    }
                 }
+            } catch (IOException e) {
+                closeEverything(socket, bufferedReader, bufferedWriter);
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            closeEverything(socket, bufferedReader, bufferedWriter);
-            e.printStackTrace();
-        }
+        });
+        thread.start();
+
     }
 
     public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {

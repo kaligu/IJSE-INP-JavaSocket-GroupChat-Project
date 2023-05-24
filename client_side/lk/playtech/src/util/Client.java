@@ -8,7 +8,9 @@ package util;
 
 import com.sun.security.sasl.ClientFactoryImpl;
 import controller.ChatFormController;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.*;
@@ -38,32 +40,47 @@ public class Client {
 
     }
     public void clientSendMessage(String message) {
-        try {
-            bufferedWriter.write(username + " : " + message);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
-        } catch (IOException e) {
-            closeEverything();
-        }
+        Thread thread = new Thread(() -> {
+            try {
+                bufferedWriter.write(username + " : " + message);
+                bufferedWriter.newLine();
+                bufferedWriter.flush();
+            } catch (IOException e) {
+                closeEverything();
+            }
+        });
+        thread.start();
     }
 
     public void listenForMessage(VBox vBox){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-//                String messageFromGroupChat;
-                while (socket.isConnected()) {
-                    try {
-                        System.out.println(bufferedReader.readLine());
-                        String message = bufferedReader.readLine();
-                        ChatFormController.receiveMessage(message, vBox);
-                    } catch (IOException e) {
-                        closeEverything();
-                        break;
-                    }
+        Thread thread = new Thread(() -> {
+            while (socket.isConnected()) {
+                try {
+
+                    String message = bufferedReader.readLine();
+//                    ChatFormController.receiveMessage(vBox,message);
+                    System.out.println("clientclass"+message);
+
+                    System.out.println("controlclass"+message);
+                    HBox hBox = new HBox();
+                    hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
+                    Label messageLbl = new Label(message);
+                    messageLbl.setStyle("-fx-background-color:   #2980b9;-fx-background-radius:15;-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
+                    hBox.getChildren().add(messageLbl);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            vBox.getChildren().add(hBox);
+                        }
+                    });
+
+                } catch (IOException e) {
+                    closeEverything();
+                    break;
                 }
             }
-        }).start();
+        });
+        thread.start();
     }
 
     public void closeEverything(){

@@ -44,6 +44,7 @@ public class ChatFormController {
         String message = txtfldmsg.getText();
 
         if (!message.isEmpty()) {
+            sendMessage(message);
             txtareamsg.appendText("me"+message);
             txtfldmsg.clear();
             client.clientSendMessage(message);
@@ -51,7 +52,17 @@ public class ChatFormController {
         }
     }
 
-    public static void receiveMessage(String message, VBox vBox){
+    private void sendMessage(String message) {
+        HBox hBox = new HBox();
+        hBox.setStyle("-fx-alignment: center-right;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
+        Label messageLbl = new Label(message);
+        messageLbl.setStyle("-fx-background-color:  #27ae60;-fx-background-radius:15;-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
+        hBox.getChildren().add(messageLbl);
+        vboxpane.getChildren().add(hBox);
+
+    }
+
+    public void receiveMessage(String message, VBox vBox){
         HBox hBox = new HBox();
         hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
         Label messageLbl = new Label(message);

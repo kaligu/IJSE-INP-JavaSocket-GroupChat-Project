@@ -1,30 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="526.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatFormController">
+<AnchorPane fx:id="mainpane" prefHeight="696.0" prefWidth="683.0" style="-fx-background-color: #4d4d4d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatFormController">
    <children>
-      <AnchorPane layoutX="6.0" layoutY="23.0" prefHeight="469.0" prefWidth="254.0" style="-fx-background-color: green;">
+      <AnchorPane fx:id="chatpane" layoutX="14.0" layoutY="54.0" prefHeight="617.0" prefWidth="640.0" style="-fx-background-color: #343635;" visible="false">
          <children>
-            <TextField fx:id="txtfldgetname" layoutX="14.0" layoutY="14.0" prefHeight="33.0" prefWidth="112.0" />
-            <TextArea fx:id="txtareamsg" layoutX="7.0" layoutY="70.0" prefHeight="343.0" prefWidth="240.0" />
-            <TextField fx:id="txtfldmsg" layoutX="7.0" layoutY="431.0" onAction="#txtfldmsgOnAction" prefHeight="33.0" prefWidth="143.0" />
-            <Button layoutX="150.0" layoutY="16.0" mnemonicParsing="false" onAction="#btnjoinchat" text="add to chat" />
-            <Text fx:id="txtsendername" layoutX="180.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-         </children></AnchorPane>
-      <AnchorPane layoutX="270.0" layoutY="14.0" prefHeight="478.0" prefWidth="572.0" style="-fx-background-color: green;">
-         <children>
-            <ScrollPane layoutX="14.0" layoutY="22.0" prefHeight="445.0" prefWidth="547.0">
+            <ImageView fitHeight="626.0" fitWidth="384.0" layoutX="304.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true" y="23.0">
+               <image>
+                  <Image url="@../images/backimg.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="626.0" fitWidth="384.0" layoutX="264.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true" y="23.0">
+               <image>
+                  <Image url="@../images/backimg.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="617.0" fitWidth="349.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/backimg.jpg" />
+               </image>
+            </ImageView>
+            <ScrollPane layoutX="12.0" layoutY="38.0" onMouseClicked="#chatpaneclickonAction" opacity="0.95" prefHeight="521.0" prefWidth="635.0">
                <content>
-                  <VBox fx:id="vboxpane" prefHeight="438.0" prefWidth="543.0" />
+                  <VBox fx:id="vboxpane" prefHeight="518.0" prefWidth="632.0" style="-fx-background-color: #565756;" />
                </content>
             </ScrollPane>
+            <AnchorPane layoutX="6.0" layoutY="567.0" prefHeight="49.0" prefWidth="648.0" style="-fx-background-color: black;">
+               <children>
+                  <JFXTextField fx:id="txtFldmsg" layoutX="6.0" layoutY="7.0" onAction="#txtfldMsgtypeOnAction" onMouseClicked="#msgtypefieldclickonAction" prefHeight="38.0" prefWidth="635.0" style="-fx-background-color: white;">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </JFXTextField>
+                  <ImageView fitHeight="41.0" fitWidth="71.0" layoutX="562.0" layoutY="4.0" onMouseClicked="#btnaddemojiestoChatOnActionClicked" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/clicktoaddallemojies.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="603.0" layoutY="6.0" onMouseClicked="#btnaddphototoChatOnActionClicked" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/addimageicon.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane fx:id="emojipane" layoutX="9.0" layoutY="-246.0" prefHeight="225.0" prefWidth="635.0" style="-fx-background-color: white;" visible="false">
+                     <children>
+                        <ScrollPane layoutX="20.0" prefHeight="238.0" prefWidth="613.0">
+                           <content>
+                              <GridPane fx:id="gridpaneemoji" prefHeight="429.0" prefWidth="592.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="54.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="496.0" minWidth="0.0" prefWidth="62.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="496.0" minWidth="0.0" prefWidth="65.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="496.0" minWidth="0.0" prefWidth="62.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="496.0" minWidth="10.0" prefWidth="74.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="496.0" minWidth="10.0" prefWidth="73.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="496.0" minWidth="10.0" prefWidth="67.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="496.0" minWidth="10.0" prefWidth="72.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="496.0" minWidth="10.0" prefWidth="65.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane opacity="0.62" prefHeight="38.0" prefWidth="657.0" style="-fx-background-color: black;">
+               <children>
+                  <Text fx:id="txtsendername" fill="WHITE" layoutX="47.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" wrappingWidth="51.99999314546585">
+                     <font>
+                        <Font name="Candara Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="29.0" fitWidth="37.0" layoutX="9.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/loginavatar.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="-2.0" onMouseDragged="#OnActionMouseDraggedwindowupbar" onMousePressed="#OnActionMousePressedwindowupbar" prefHeight="41.0" prefWidth="685.0" style="-fx-background-color: #2d2e2e;">
+         <children>
+            <ImageView fx:id="btnclose" fitHeight="25.0" fitWidth="25.0" layoutX="653.0" layoutY="7.0" onMouseClicked="#btncloseMouseClickedAction" onMouseEntered="#btncloseMouseEnterdAction" onMouseExited="#btncloseMouseExitedAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/whiteclose.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="btnminimise" fitHeight="25.0" fitWidth="25.0" layoutX="614.0" layoutY="7.0" onMouseClicked="#btnminimizeMouseClickedAction" onMouseEntered="#btnminimizeMouseEnteredAction" onMouseExited="#btnminimizeMouseExitedAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/minwhite.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="12.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" x="1.0">
+               <image>
+                  <Image url="@../images/logochati.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="45.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Play Tech - Group Chat">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="paneLogin" layoutX="14.0" layoutY="59.0" prefHeight="617.0" prefWidth="657.0" style="-fx-background-color: #153852;">
+         <children>
+            <JFXButton layoutX="233.0" layoutY="409.0" onAction="#btnLoginToCHatOnAction" prefHeight="41.0" prefWidth="209.0" style="-fx-background-color: #1577b0;" text="Login " textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="182.0" fitWidth="184.0" layoutX="246.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/loginavatar.png" />
+               </image>
+            </ImageView>
+            <JFXTextField fx:id="txtFldgetname" focusColor="#00a1ff" layoutX="233.0" layoutY="363.0" prefHeight="29.0" prefWidth="209.0" style="-fx-background-color: white;" unFocusColor="WHITE" />
+            <ImageView fitHeight="41.0" fitWidth="103.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/companylogo.png" />
+               </image>
+            </ImageView>
+            <Text fill="#a1a1a1" layoutX="21.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Play Tech Company Pvt Ltd">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="#a1a1a1" layoutX="21.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Developed@Kaligu">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>

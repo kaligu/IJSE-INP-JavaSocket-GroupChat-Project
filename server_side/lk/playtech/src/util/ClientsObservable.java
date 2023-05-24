@@ -6,6 +6,8 @@
 */
 package util;
 
+import java.io.File;
+
 /**
  * @author : H.C.Kaligu Jayanath
  * Date    : 5/24/2023
@@ -13,9 +15,11 @@ package util;
  */
 public interface ClientsObservable {
 
-    public void addClient(ClientObserver clientObserver);
+    void addClient(ClientObserver clientObserver);  //add client to hold
 
-    public void removeClient(ClientObserver clientObserver);
+    void removeClient(ClientObserver clientObserver); //remove client from holdin array
 
-    public void broadcastMsgsToClients(String msg, String senderUsername);
+    void broadcastMsgsToClients(String msg, String senderUsername); //send massage into all holding clients
+
+    void broadcastImagesToClients(File file, String senderUsername); //send images into all holding clients
 }

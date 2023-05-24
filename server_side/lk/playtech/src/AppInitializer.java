@@ -25,6 +25,7 @@ public class AppInitializer extends Application {
                             getClass().getResource("forms/MainForm.fxml")
                     )
             ));
+            primaryStage.setTitle("Chat Server Control");
         } catch (IOException e) {
             e.printStackTrace();
         }

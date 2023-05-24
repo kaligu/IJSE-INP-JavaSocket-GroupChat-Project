@@ -19,87 +19,49 @@ import java.net.Socket;
  * Time    : 6:04 PM
  */
 public class Server {
-    private int port;
     private java.net.ServerSocket serverSocket;
-    boolean bool;
-    ClientsObservable clientsObservable;
-    //clients holding arraylist
+    ClientsObservable clientsObservable; //create clients holding ClientsObservable interface instance
 
-    public Server() {
-    }
 
-    public boolean initializeServerSocket(int port){
-        this.port = port;
+    public Server() {}
+
+    public void initializeServerSocket(int port){
         try {
-            clientsObservable = new ClientsHandler();
-            //create Server Socket
-            bool=true;
-            System.out.println("Server is start");
+
+            clientsObservable = new ClientsHandler();  //assign implementation to initialize clientobservable
+
             this.serverSocket = new java.net.ServerSocket(port);
-            return true;
+
         } catch (IOException e) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR,e+"");
-//            alert.show();
-            return false;
+            System.out.println("this port already used");
         }
     }
 
     public void openServerSocket(){
-        while (!(serverSocket.isClosed())) {
+        while (!(serverSocket.isClosed())) {   //if serversocket opened can accept
             try {
                 Socket socket = serverSocket.accept();
-                System.out.println("new Client Connected");
 
                 Thread thread = new Thread(() -> {
-                    clientsObservable.addClient(new ClientConnecrion(socket));
-                })
-
-                ;
+                    clientsObservable.addClient(new ClientConnecrion(socket));  //request holding socket initialize as connection and it assign to clienthandler
+                });
                 thread.start();
 
             } catch (IOException e) {
-                e.printStackTrace();
-                closeServerSocket();
+                closeServerSocket();  //if exception received close serversocket
             }
         }
-//        //accept server socket
-//        if( serverSocket!=null) {  //check server socket not null and already serversocket is closed
-//            System.out.println("Server is Running");
-//            Socket socket = null;
-//            try {
-//                socket = serverSocket.accept();
-//                System.out.println("new Client Connected");
-//                Thread thread1 = new Thread(new ClientHandler(socket));
-//                thread1.start();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            //socket send to clienthandler
-//
-////                Thread thread = new Thread(() -> {
-////                    ClientHandler clientHandler = new ClientHandler(this.socket);
-////                    clientHandlers.add(clientHandler);
-////                });
-////                thread.start();
-////                broadcastMessage("Joined Chat");
-//
-//        }
     }
 
     public void closeServerSocket(){
         try {
-            if( serverSocket!=null){
-                bool=true;
+            if( serverSocket!=null){  //if server socket not null
+
                 this.serverSocket.close(); //close server socket
-                System.out.println("Server is closed");
-//                this.dataInputStream.close();
-//                this.dataOutputStream.close();
-//                this.socket.close();
+
             }
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR,e+"");
-            alert.show();
+            System.out.println("server socket closing error!");
         }
     }
 

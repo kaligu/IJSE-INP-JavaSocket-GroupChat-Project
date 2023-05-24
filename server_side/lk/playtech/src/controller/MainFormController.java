@@ -20,7 +20,8 @@ import util.Server;
  * Time    : 5:08 PM
  */
 public class MainFormController {
-    //port
+
+    //*******  port  *******
     private static int port = 9000;
 
     @FXML
@@ -29,41 +30,31 @@ public class MainFormController {
     public ImageView imgviewstatus;
 
     public Text txtstatus;
-    Thread thread1;
     Server server;
-    boolean isSocketCanUse = false;
 
-    public void initialize() {
-
-
-
-    }
+    public void initialize() {}
 
     public void clickOnActionbtnChangeStatus(ActionEvent actionEvent) {
-        if((btnChangeStatus.getText().equals("Start"))){  //check button shows start
+        if((btnChangeStatus.getText().equals("Start"))){  //if true = btn text is "start"
 
-            if(true){
-                //notify gui
-                imgviewstatus.setImage(new Image("images/readytouseicon.png"));
-                txtstatus.setText("Ready to use");
-                btnChangeStatus.setText("Stop");
-                //create util's serversocket object
-                Thread thread = new Thread(() ->{
-                    server = new Server();
-                    isSocketCanUse = server.initializeServerSocket(port); //initialize port and return this port cam use or not
-                    server.openServerSocket();
-                });
-                thread.start();
+            //notify gui server accept successed
+            imgviewstatus.setImage(new Image("images/readytouseicon.png"));
+            txtstatus.setText("Ready to use");
+            btnChangeStatus.setText("Stop");
 
+            //create serversocket object
+            Thread thread = new Thread(() ->{
+                server = new Server();  //create Server object
+                server.initializeServerSocket(port); //initialize port to server socket
+                server.openServerSocket();  //accept server socket and assign to socket for requests
+            });
+            thread.start();
 
-            }
+        }else if((btnChangeStatus.getText().equals("Stop"))){  //if true = btn text is "stop"
 
-        }else if((btnChangeStatus.getText().equals("Stop"))){  //check button shows stop
+            server.closeServerSocket();  //close server socket
 
-            //open server socket for requests
-            server.closeServerSocket();
-
-            //notify gui
+            //notify gui server socket closed
             imgviewstatus.setImage(new Image("images/stopedicon.png"));
             txtstatus.setText("Stopped");
             btnChangeStatus.setText("Start");

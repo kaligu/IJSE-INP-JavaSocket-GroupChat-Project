@@ -17,25 +17,23 @@ import java.net.Socket;
  * Time    : 7:37 PM
  */
 public class ClientConnecrion implements ClientObserver {
-    public String userName;
-    public Socket socket;
-    public BufferedReader bufferedReader;
-    public BufferedWriter bufferedWriter;
+    private String userName;
+    private Socket socket;
+    private DataOutputStream dataOutputStream;
+    private DataInputStream dataInputStream;
 
 
-    public ClientConnecrion(Socket socket) {
+    public ClientConnecrion(Socket socket) {  //assign holded socket into create conection
         try {
-
             this.socket = socket;
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.userName = bufferedReader.readLine();
+            this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            this.dataInputStream = new DataInputStream(socket.getInputStream());
+            this.userName = dataInputStream.readUTF();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public String getClientUsername() {
@@ -43,18 +41,19 @@ public class ClientConnecrion implements ClientObserver {
     }
 
     @Override
-    public BufferedWriter getBufferedWriter() {
-        return this.bufferedWriter;
+    public DataOutputStream getDataOutputStream() {
+        return this.dataOutputStream;
     }
 
     @Override
-    public BufferedReader getBufferedReader() {
-        return this.bufferedReader;
+    public DataInputStream getDataInputStream() {
+        return this.dataInputStream;
     }
 
     @Override
     public Socket getSocket() {
         return this.socket;
     }
+
 
 }

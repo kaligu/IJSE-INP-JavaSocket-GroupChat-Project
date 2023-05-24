@@ -8,6 +8,8 @@ package util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.net.Socket;
 
 /**
@@ -16,11 +18,11 @@ import java.net.Socket;
  * Time    : 7:57 PM
  */
 public interface ClientObserver {
-    String getClientUsername();
+    String getClientUsername();  //return client username
 
-    BufferedWriter getBufferedWriter();
+    DataOutputStream getDataOutputStream(); //return client Bufferwriter
 
-    BufferedReader getBufferedReader();
+    DataInputStream getDataInputStream();  //return client Bufferreader
 
-    Socket getSocket();
+    Socket getSocket(); //return client socket
 }

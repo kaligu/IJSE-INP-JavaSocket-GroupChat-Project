@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -25,6 +26,7 @@ public class AppInitializer extends Application {
                             getClass().getResource("forms/ChatForm.fxml")
                     )
             ));
+            primaryStage.initStyle(StageStyle.UNDECORATED);
         } catch (IOException e) {
             e.printStackTrace();
         }

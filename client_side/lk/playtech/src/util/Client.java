@@ -51,6 +51,7 @@ public class Client {
             try {
                 dataOutputStream.writeUTF(username + " : " + message);
                 dataOutputStream.flush();
+                System.out.println("***sent"+message);
             } catch (IOException e) {
                 closeEverything();
             }
@@ -82,11 +83,12 @@ public class Client {
                 dataOutputStream.write(buffer, 0, bytesRead);
             }
 
+
             // Close the streams and socket
             bufferedInputStream.close();
             dataOutputStream.flush();
 
-            System.out.println("Image sent successfully.");
+                System.out.println("***sent"+"image");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -96,95 +98,39 @@ public class Client {
 
     }
 
-    public void listenForMessage(VBox vBox,Client client){
+    public void listenForMessage(VBox vBox){
         Thread thread = new Thread(() -> {
             while (socket.isConnected()) {
                 try {
-                    if(!isImageRecieving){
                         String message = dataInputStream.readUTF();
                         System.out.println("controlclass"+message);
-                        HBox hBox = new HBox();
-                        hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
-                        Label messageLbl = new Label(message);
-                        messageLbl.setStyle("-fx-background-color:   #2980b9;-fx-background-radius:15;-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
-                        hBox.getChildren().add(messageLbl);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                vBox.getChildren().add(hBox);
-                            }
-                        });
+
+                    Thread thread1 = new Thread(() -> {
+                        ChatFormController.receivemsg(vBox,message);
+                    });
+                    thread1.start();
 
 
 
+
+                        System.out.println("***recieved"+message);
                         if(message.contains("image")){
-                            isImageRecieving =true;
-                        }else{
+                            System.out.println("&&&&"+this.dataInputStream.readLong());
+
+                            Thread thread12= new Thread(() -> {
+                                ChatFormController.receiveImg(vBox, message);
+                            });
+                            thread12.start();
+
+
+//                        System.out.println("***recieved"+"image");
                             isImageRecieving = false;
                         }
-                    }else {
-                        System.out.println("image reciving");
-                        String imgurl = dataInputStream.readUTF();
-                        System.out.println("controlclass"+imgurl);
 
-                        // Read the file size from the client
-//                        long fileSize = client.dataInputStream.readLong();
-//                        System.out.println("133 Received file size: " + fileSize);
-
-////                         Discard the received data since the server is not saving it
-//                         Create a file output stream to save the received file
-
-//                        System.out.println("138");
-//                        FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-//
-//                        System.out.println("141");
-//                        // Receive and save the file data
-//                        byte[] buffer = new byte[4*1024];
-//                        int bytesRead;
-//                        long totalBytesRead = 0;
-//                        System.out.println("145");
-//                        DataInputStream dataInputStream1 = new DataInputStream(socket.getInputStream());
-//                        bytesRead = dataInputStream1.read(buffer);
-//                        while (totalBytesRead < dataInputStream1.readLong() && (bytesRead != -1)) {
-//                            System.out.println("bytesRead "+bytesRead);
-//                            System.out.println("fileSize  "+dataInputStream1.readLong());
-//
-//                            fileOutputStream.write(buffer, 0, bytesRead);
-//                            totalBytesRead += bytesRead;
-//                            System.out.println("totalBytesRead  "+totalBytesRead);
-//                        }
-//                        System.out.println("ffdff"+dataInputStream1.read(buffer));
-//                        System.out.println("150");
-
-
-
-                        // Close the stream and socket
-                        String fileName = "D:\\ijse socket project\\IJSE-INP-JavaSocket-GroupChat-Project\\server_side\\lk\\playtech\\resources\\server-imgs-memory\\Chat-img-location.png";
-                        ImageView imageView = new ImageView();
-                        imageView.setImage(new Image("server-imgs-memory/Chat-img-location.png"));
-
-                        imageView.setFitWidth(300);
-                        imageView.setFitHeight(300);
-
-                        HBox hBox = new HBox();
-                        hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-padding: 10");
-                        hBox.getChildren().add(imageView);
-
-                        Platform.runLater(() -> {
-                            vBox.getChildren().add(hBox);
-                        });
-
-
-                        System.out.println("Image received and discarded successfully.y y6+-++++++++++++++++++++++++++++++++++" );
-
-                        isImageRecieving = false;
-                    }
 
 
 
                 } catch (IOException e) {
-                    closeEverything();
-                    break;
                 }
             }
         });

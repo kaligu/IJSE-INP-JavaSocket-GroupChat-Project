@@ -6,13 +6,6 @@
 */
 package util.impl;
 
-import controller.MainFormController;
-import javafx.application.Platform;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import util.ClientObserver;
-import util.ClientsObservable;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -22,53 +15,80 @@ import java.util.ArrayList;
  * Date    : 5/24/2023
  * Time    : 7:11 PM
  */
-public class ClientsHandler implements ClientsObservable {
+public class ClientsHandler{
 
-    public static ArrayList<ClientObserver> clientObserverArrayList = new ArrayList<>(); //clients holding array using client connections as observers
+    public static ArrayList<ClientsHandler> clientsHandlerArrayList = new ArrayList<>(); //clients holding array using client connections as observers
+    private String userName;
+    private Socket socket;
+    private DataOutputStream dataOutputStream;
+    private DataInputStream dataInputStream;
 
-    public ClientsHandler() {}
+    public ClientsHandler(Socket socket) {
+        try {
+            this.socket = socket;
+            this.dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            this.dataInputStream = new DataInputStream(socket.getInputStream());
+            this.userName = dataInputStream.readUTF();
+            clientsHandlerArrayList.add(this);
+            broadcastMsgsToClients(this.userName + "Joined to Chat..." , this.userName); //send to all clients
+            listeningClientMsg();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private void listeningClientMsg() {
+        Thread thread = new Thread(() -> {
+//            String message;
+//            while (true) {
+//                try {
+//                    message = this.dataInputStream.readUTF();
+//                    System.out.println("server msg >"+message);
+//                    broadcastMsgsToClients(message, userName);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                    break;
+//                }
+//            }
 
-    @Override
-    public void addClient(ClientObserver clientObserver) {
-        clientObserverArrayList.add(clientObserver);  //add to array
-        broadcastMsgsToClients(clientObserver.getClientUsername() + "Joined to Chat..." , clientObserver.getClientUsername()); //send to all clients
-
-        boolean isImageRecieving =false;
-        String message;
-        while (clientObserver.getSocket().isConnected()) { //if connected
+            boolean isImageRecieving =false;
+            String message;
+            while (true) { //if connected
             try {
                 if(!isImageRecieving){
-                    message = clientObserver.getDataInputStream().readUTF();
-                    this.broadcastMsgsToClients(message,clientObserver.getClientUsername());
+                    message = this.dataInputStream.readUTF();
+                    broadcastMsgsToClients(message,this.userName);
                     if(message.contains("image")){
                         isImageRecieving =true;
                     }else{
                         isImageRecieving = false;
                     }
                 }else {
-                    this.broadcastMsgsToClients("Image Recieved",clientObserver.getClientUsername());
+
+                    broadcastMsgsToClients("a image Recieved!",this.userName);
                     System.out.println("image reciving");
-                                            // Read the file size from the client
-                long fileSize = clientObserver.getDataInputStream().readLong();
-                System.out.println("Received file size: " + fileSize);
 
-                // Discard the received data since the server is not saving it
-                // Create a file output stream to save the received file
-                String fileName = "pa";
-                FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+                    long fileSize = this.dataInputStream.readLong();
 
-                // Receive and save the file data
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                long totalBytesRead = 0;
-                while (totalBytesRead < fileSize && (bytesRead = clientObserver.getDataInputStream().read(buffer)) != -1) {
-                    fileOutputStream.write(buffer, 0, bytesRead);
-                    totalBytesRead += bytesRead;
-                }
+                    String fileName = "images/Chat-img-location.png";
+                    FileOutputStream fileOutputStream = new FileOutputStream(fileName);
 
-                File file = new File(fileName);
-                broadcastImagesToClients(file,clientObserver.getClientUsername());
+                    // Receive and save the file data
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    long totalBytesRead = 0;
+
+                    while (totalBytesRead < fileSize && (bytesRead = this.dataInputStream.read(buffer)) != -1) {
+                      fileOutputStream.write(buffer, 0, bytesRead);
+                      totalBytesRead += bytesRead;
+                    }
+
+                    System.out.println("image recived");
+                    File file = new File(fileName);
+                    broadcastImagesToClients(file, this.userName);
+
+                    //send
+
 
                     isImageRecieving=false;
                 }
@@ -76,50 +96,100 @@ public class ClientsHandler implements ClientsObservable {
 //                e.printStackTrace();
                 break;
             }
+
+
+        }
+        });
+        thread.start();
+    }
+
+//
+//    public void addClient(ClientsHandler clientsHandler) {
+//        clientConnectionArrayList.add(clientConnection);  //add to array
+//
+
+//        boolean isImageRecieving =false;
+//        String message;
+//        while (clientObserver.getSocket().isConnected()) { //if connected
+//            try {
+//                if(!isImageRecieving){
+//                    message = clientObserver.getDataInputStream().readUTF();
+//                    this.broadcastMsgsToClients(message,clientObserver.getClientUsername());
+//                    if(message.contains("image")){
+//                        isImageRecieving =true;
+//                    }else{
+//                        isImageRecieving = false;
+//                    }
+//                }else {
+//                    this.broadcastMsgsToClients("Image Recieved",clientObserver.getClientUsername());
+//                    System.out.println("image reciving");
+//                                            // Read the file size from the client
+//                long fileSize = clientObserver.getDataInputStream().readLong();
+//                System.out.println("Received file size: " + fileSize);
+//
+//                // Discard the received data since the server is not saving it
+//                // Create a file output stream to save the received file
+//                String fileName = "path_to_save_image_file_12.jpg";
+//                FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+//
+//                // Receive and save the file data
+//                byte[] buffer = new byte[1024];
+//                int bytesRead;
+//                long totalBytesRead = 0;
+//                while (totalBytesRead < fileSize && (bytesRead = clientObserver.getDataInputStream().read(buffer)) != -1) {
+//                    fileOutputStream.write(buffer, 0, bytesRead);
+//                    totalBytesRead += bytesRead;
+//                }
+//
+//                File file = new File(fileName);
+//                broadcastImagesToClients(file,clientObserver.getClientUsername());
+//
+//                    isImageRecieving=false;
+//                }
+//            } catch (IOException e) {
+////                e.printStackTrace();
+//                break;
+//            }
+//        }
+//    }
+
+    public void removeClient(ClientsHandler clientsHandler) {
+        clientsHandlerArrayList.remove(clientsHandler);  //remove from array
+        broadcastMsgsToClients(clientsHandler.userName+ " has left from chat...!", clientsHandler.userName);
+    }
+
+    public void broadcastMsgsToClients(String msg, String senderUsername) {
+        try {
+            for (ClientsHandler clientsHandler : clientsHandlerArrayList) {   //get all clients to send message
+                if(!clientsHandler.userName.equals(senderUsername)){
+                    clientsHandler.dataOutputStream.writeUTF(msg);
+                    clientsHandler.dataOutputStream.flush();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public void removeClient(ClientObserver clientObserver) {
-        clientObserverArrayList.remove(clientObserver);  //remove from array
-        broadcastMsgsToClients(clientObserver.getClientUsername()+ " has left from chat...!", clientObserver.getClientUsername());
-    }
-
-    @Override
-    public void broadcastMsgsToClients(String msg, String senderUsername) {
-        Thread thread = new Thread(() -> {
-            try {
-                for (ClientObserver clientObserverf : clientObserverArrayList) {   //get all clients to send message
-                    if(!clientObserverf.getClientUsername().equals(senderUsername)){
-                        clientObserverf.getDataOutputStream().writeUTF(msg);
-                        clientObserverf.getDataOutputStream().flush();
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        thread.start();
-    }
-
-    @Override
     public void broadcastImagesToClients(File file, String senderUsername) {
-        Thread thread = new Thread(() -> {
-            try {
-                String msg = file.getPath();
-                // Send the file size and data to each client
-                for (ClientObserver clientObserver : clientObserverArrayList) {
-                    if (!clientObserver.getClientUsername().equals(senderUsername)) {
-                        clientObserver.getDataOutputStream().writeUTF(msg);
-                        clientObserver.getDataOutputStream().flush();
-                    }
+        String msg = file.getPath();
+        System.out.println(msg);
+        // Send the file size and data to each client
+        for (ClientsHandler clientsHandler: clientsHandlerArrayList) {
+            if (!clientsHandler.userName.equals(senderUsername)) {
+                try {
+                    System.out.println("************************************************************************************************");
+                    clientsHandler.dataOutputStream.writeUTF("image");
+                    clientsHandler.dataOutputStream.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                System.out.println("Image location sent successfully.");
-            } catch (IOException e) {
-                e.printStackTrace();
+
+
+                System.out.println("***sent"+"image");
             }
-        });
-        thread.start();
+        }
+        System.out.println("Image location sent successfully.");
     }
 
 }

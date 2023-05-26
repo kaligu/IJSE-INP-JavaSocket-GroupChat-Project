@@ -15,11 +15,11 @@ import java.io.File;
  */
 public interface ClientsObservable {
 
-    void addClient(ClientObserver clientObserver);  //add client to hold
-
-    void removeClient(ClientObserver clientObserver); //remove client from holdin array
-
-    void broadcastMsgsToClients(String msg, String senderUsername); //send massage into all holding clients
-
-    void broadcastImagesToClients(File file, String senderUsername); //send images into all holding clients
+//    void addClient(ClientObserver clientObserver);  //add client to hold
+//
+//    void removeClient(ClientObserver clientObserver); //remove client from holdin array
+//
+//    void broadcastMsgsToClients(String msg, String senderUsername); //send massage into all holding clients
+//
+//    void broadcastImagesToClients(File file, String senderUsername); //send images into all holding clients
 }

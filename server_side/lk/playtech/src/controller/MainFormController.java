@@ -14,6 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import util.Server;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+
 /**
  * @author : H.C.Kaligu Jayanath
  * Date    : 5/22/2023
@@ -43,16 +46,24 @@ public class MainFormController {
             btnChangeStatus.setText("Stop");
 
             //create serversocket object
-            Thread thread = new Thread(() ->{
-                server = new Server();  //create Server object
-                server.initializeServerSocket(port); //initialize port to server socket
-                server.openServerSocket();  //accept server socket and assign to socket for requests
+            System.out.println("Server is start");
+            Thread thread = new Thread(() -> {
+                ServerSocket serverSocket  = null;
+                try {
+                    serverSocket = new ServerSocket(5000);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Server is Running");
+                server = new Server(serverSocket);
+                server.runServer();
             });
             thread.start();
 
-        }else if((btnChangeStatus.getText().equals("Stop"))){  //if true = btn text is "stop"
 
-            server.closeServerSocket();  //close server socket
+        }else if((btnChangeStatus.getText().equals("Stop"))){  //if true = btn text is "stop"
+            System.out.println("Server is Running");
+            server.runServer();
 
             //notify gui server socket closed
             imgviewstatus.setImage(new Image("images/stopedicon.png"));

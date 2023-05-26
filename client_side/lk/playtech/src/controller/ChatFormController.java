@@ -64,6 +64,39 @@ public class ChatFormController extends Window implements Observer {
     private double x=0;
     private double y=0;
 
+    public static void receivemsg(VBox vBox, String message) {
+        HBox hBox = new HBox();
+        hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
+        Label messageLbl = new Label(message);
+        messageLbl.setStyle("-fx-background-color:   #2980b9;-fx-background-radius:15;-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
+        hBox.getChildren().add(messageLbl);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                vBox.getChildren().add(hBox);
+            }
+        });
+    }
+
+    public static void receiveImg(VBox vBox, String message) {
+        System.out.println("image recived");
+//                        String imgurl = dataInputStream.readUTF();
+//
+        ImageView imageView = new ImageView("images/Chat-img-location.png");
+
+
+        imageView.setFitWidth(300);
+        imageView.setFitHeight(300);
+        HBox hBox1 = new HBox();
+        hBox1.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-padding: 10");
+        hBox1.getChildren().add(imageView);
+
+        Platform.runLater(() -> {
+            vBox.getChildren().add(hBox1);
+        });
+    }
+
+
     public void initialize(){
         setEmojiesToPane(); //set emojies to ui grid pane
     }
@@ -145,7 +178,7 @@ public class ChatFormController extends Window implements Observer {
         txtsendername.setText(txtFldgetname.getText());
         if(!txtFldgetname.getText().equals("")){
             try {
-                client = new Client(new Socket("localhost",9000),txtFldgetname.getText());
+                client = new Client(new Socket("localhost",5000),txtFldgetname.getText());
                 txtFldgetname.clear();
                 paneLogin.setVisible(false);
                 chatpane.setVisible(true);
@@ -153,7 +186,7 @@ public class ChatFormController extends Window implements Observer {
                 Alert alert = new Alert(Alert.AlertType.ERROR , "Serever not connected.Try Again!");
                 alert.show();
             }
-            client.listenForMessage(vboxpane,client);
+            client.listenForMessage(vboxpane);
             client.clientSendMessage("");
         }
 
@@ -234,6 +267,19 @@ public class ChatFormController extends Window implements Observer {
         if (selectedFile != null) {
             client.clientSendImage(selectedFile); //send  photo to server
         }
+        ImageView imageView = new ImageView();
+        imageView.setImage(new Image("images/Chat-img-location.png"));
+
+        imageView.setFitWidth(300);
+        imageView.setFitHeight(300);
+
+        HBox hBox = new HBox();
+        hBox.setStyle("-fx-alignment: center-right;-fx-fill-height: true;-fx-padding: 10");
+        hBox.getChildren().add(imageView);
+
+        Platform.runLater(() -> {
+            vboxpane.getChildren().add(hBox);
+        });
     }
 
 

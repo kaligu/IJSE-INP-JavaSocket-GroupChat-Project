@@ -6,11 +6,10 @@
 */
 package util;
 
-import javafx.scene.control.Alert;
-import util.impl.ClientConnecrion;
 import util.impl.ClientsHandler;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -19,52 +18,39 @@ import java.net.Socket;
  * Time    : 6:04 PM
  */
 public class Server {
-    private java.net.ServerSocket serverSocket;
-    ClientsObservable clientsObservable; //create clients holding ClientsObservable interface instance
+    private ServerSocket serverSocket;
 
-
-    public Server() {}
-
-    public void initializeServerSocket(int port){
-        try {
-
-            clientsObservable = new ClientsHandler();  //assign implementation to initialize clientobservable
-
-            this.serverSocket = new java.net.ServerSocket(port);
-
-        } catch (IOException e) {
-            System.out.println("this port already used");
-        }
+    public Server(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
     }
 
-    public void openServerSocket(){
-        while (!(serverSocket.isClosed())) {   //if serversocket opened can accept
+    public void runServer(){
+        System.out.println("runserver");
+        while (true) {
             try {
                 Socket socket = serverSocket.accept();
-
+                System.out.println("new Client Connected");
                 Thread thread = new Thread(() -> {
-                    clientsObservable.addClient(new ClientConnecrion(socket));  //request holding socket initialize as connection and it assign to clienthandler
+                    System.out.println("connected");
+                    ClientsHandler clientsHandler = new ClientsHandler(socket);
                 });
                 thread.start();
-
             } catch (IOException e) {
-                closeServerSocket();  //if exception received close serversocket
+                e.printStackTrace();
+                closeServer();
             }
         }
+
     }
 
-    public void closeServerSocket(){
+    private void closeServer() {
         try {
-            if( serverSocket!=null){  //if server socket not null
-
-                this.serverSocket.close(); //close server socket
-
+            if (serverSocket != null) {
+                serverSocket.close();
+                System.out.println("Server Closed");
             }
         } catch (IOException e) {
-            System.out.println("server socket closing error!");
+            e.printStackTrace();
         }
     }
-
-
-
 }

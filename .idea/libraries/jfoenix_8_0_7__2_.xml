@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="jfoenix-8.0.7 (2)">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/client_side/lk/playtech/resources/lib/jfoenix-8.0.7 (2).jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/client_side/lib/jfoenix-8.0.7 (2).jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

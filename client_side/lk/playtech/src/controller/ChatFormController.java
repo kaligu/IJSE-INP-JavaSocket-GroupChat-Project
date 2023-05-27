@@ -8,13 +8,11 @@ package controller;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,12 +20,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import util.Client;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
@@ -36,6 +38,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author : H.C.Kaligu Jayanath
@@ -78,21 +83,73 @@ public class ChatFormController extends Window implements Observer {
         });
     }
 
+
     public static void receiveImg(VBox vBox, String message) {
-        System.out.println("image recived");
-//                        String imgurl = dataInputStream.readUTF();
+        HBox hBox = new HBox();
+        hBox.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-min-height: 50;-fx-pref-width: 520;-fx-max-width: 520;-fx-padding: 10");
+
+        Label messageLbl = new Label(message);
+        messageLbl.setStyle("-fx-background-color:   #2980b9;-fx-background-radius:15;-fx-font-size: 18;-fx-font-weight: normal;-fx-text-fill: white;-fx-wrap-text: true;-fx-alignment: center-left;-fx-content-display: left;-fx-padding: 10;-fx-max-width: 350;");
+        hBox.getChildren().add(messageLbl);
+
+
+        Button button = new Button("Click here to Show! ");
+        button.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(new File("client_side/lk/playtech/resources/Shared-Img-Location"));
+
+            File selectedFile = fileChooser.showOpenDialog(null);
+
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+            FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+            fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+            if (selectedFile != null) {
+
+                ImageView imageView = new ImageView();
+                try {
+                    imageView.setFitWidth(300);
+                    imageView.setFitHeight(300);
+                    BufferedImage bufferedImage = ImageIO.read(selectedFile);
+                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                    imageView.setImage(image);
+                } catch (IOException ex) {
+//            Logger.getLogger(JavaFXPixel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+
+                HBox hBox1 = new HBox();
+                hBox1.getChildren().add(imageView);
+                Platform.runLater(() -> {
+                    vBox.getChildren().add(hBox1);
+                });
+            }else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Image Download Warning");
+                alert.setHeaderText("Select received image to download to Chat!");
+                alert.setContentText("This image show in once.If you are not select this recived image you can't see in this chat history.Therefore please select and open it.");
+                ButtonType okButton = new ButtonType("ReOpen", ButtonBar.ButtonData.OK_DONE);
+                ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(okButton, cancelButton);
+
+                alert.show();
+            }
+        });
+        hBox.getChildren().add(button);
+
+
+
+//        System.out.println("controllerimage recived********************************************");
+////                        String imgurl = dataInputStream.readUTF(0);
 //
-        ImageView imageView = new ImageView("images/Chat-img-location.png");
+//
+//
+       ;
 
-
-        imageView.setFitWidth(300);
-        imageView.setFitHeight(300);
-        HBox hBox1 = new HBox();
-        hBox1.setStyle("-fx-alignment: center-left;-fx-fill-height: true;-fx-padding: 10");
-        hBox1.getChildren().add(imageView);
 
         Platform.runLater(() -> {
-            vBox.getChildren().add(hBox1);
+            vBox.getChildren().add(hBox);
         });
     }
 
@@ -260,26 +317,30 @@ public class ChatFormController extends Window implements Observer {
     public void btnaddphototoChatOnActionClicked(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
 
-        // Configure file chooser properties (e.g., initial directory, file filters)
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
 
-        // Show the file chooser dialog
-        File selectedFile = fileChooser.showOpenDialog(this);
-        if (selectedFile != null) {
-            client.clientSendImage(selectedFile); //send  photo to server
-        }
+        //Show open file dialog
+        File file = fileChooser.showOpenDialog(null);
         ImageView imageView = new ImageView();
-        imageView.setImage(new Image("images/Chat-img-location.png"));
-
-        imageView.setFitWidth(300);
-        imageView.setFitHeight(300);
+        try {
+            imageView.setFitWidth(300);
+            imageView.setFitHeight(300);
+            BufferedImage bufferedImage = ImageIO.read(file);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            imageView.setImage(image);
+        } catch (IOException ex) {
+//            Logger.getLogger(JavaFXPixel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        client.clientSendImage(file);
 
         HBox hBox = new HBox();
         hBox.setStyle("-fx-alignment: center-right;-fx-fill-height: true;-fx-padding: 10");
         hBox.getChildren().add(imageView);
 
-        Platform.runLater(() -> {
-            vboxpane.getChildren().add(hBox);
-        });
+        vboxpane.getChildren().add(hBox);
     }
 
 

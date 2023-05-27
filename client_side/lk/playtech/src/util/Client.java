@@ -99,40 +99,35 @@ public class Client {
     }
 
     public void listenForMessage(VBox vBox){
+
         Thread thread = new Thread(() -> {
             while (socket.isConnected()) {
+                boolean isimage = false;
+                long size;
+                String message = null;
                 try {
-                        String message = dataInputStream.readUTF();
-                        System.out.println("controlclass"+message);
-
-                    Thread thread1 = new Thread(() -> {
-                        ChatFormController.receivemsg(vBox,message);
-                    });
-                    thread1.start();
-
-
-
-
-                        System.out.println("***recieved"+message);
-                        if(message.contains("image")){
-                            System.out.println("&&&&"+this.dataInputStream.readLong());
-
-                            Thread thread12= new Thread(() -> {
-                                ChatFormController.receiveImg(vBox, message);
-                            });
-                            thread12.start();
-
-
-//                        System.out.println("***recieved"+"image");
-                            isImageRecieving = false;
-                        }
-
-
-
-
+                    message = dataInputStream.readUTF();
+                    System.out.println("110  "+message);
                 } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }
+
+
+                if(message.contains("image")){
+                    message=username+" : Image Received.";
+                    System.out.println("116path  "+message);
+                    isimage=true;
+                    System.out.println("118path"+message);
+
+                    System.out.println("client rimage recived********************************************");
+                    ChatFormController.receiveImg(vBox, message);
+                }else{
+                    isimage=false;
+                    System.out.println("124path "+message);
+                    ChatFormController.receivemsg(vBox,message);
+                }
+
+                }
         });
         thread.start();
     }

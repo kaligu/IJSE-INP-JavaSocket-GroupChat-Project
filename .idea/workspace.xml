@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4e106fcd-42d2-4670-aba9-a65260effae7" name="Changes" comment="reuploaded project after fixing bugs">
+      <change afterPath="$PROJECT_DIR$/client_side/lk/playtech/resources/Shared-Img-Location/Shared-Image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/resources/images/Chat-img-location.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/src/controller/ChatFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client_side/lk/playtech/src/controller/ChatFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/src/util/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client_side/lk/playtech/src/util/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/client_side/util/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/util/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/server_side/util/impl/ClientsHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/server_side/util/impl/ClientsHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_side/lk/playtech/src/util/impl/ClientsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server_side/lk/playtech/src/util/impl/ClientsHandler.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2QKYp1jvUvNHbzYYj6mbeqP77gZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client_side/lk/playtech/resources/audio" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IJSE-INP-JavaSocket-GroupChat-Project newest\IJSE-INP-JavaSocket-GroupChat-Project\client_side\lk\playtech\resources\audio" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\IJSE-INP-JavaSocket-GroupChat-Project newest\IJSE-INP-JavaSocket-GroupChat-Project\client_side\lk\playtech\resources\Shared-Img-Location" />
+      <recent name="D:\IJSE-INP-JavaSocket-GroupChat-Project newest\IJSE-INP-JavaSocket-GroupChat-Project\client_side\lk\playtech\resources\images" />
+      <recent name="D:\IJSE-INP-JavaSocket-GroupChat-Project newest\IJSE-INP-JavaSocket-GroupChat-Project\client_side\lk\playtech\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Client">
+    <configuration name="Client" type="Application" factoryName="Application" singleton="false">
+      <option name="MAIN_CLASS_NAME" value="AppInitializer" />
+      <module name="client_side" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="AppInitializer" />
+      <module name="server_side" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Client" />
+      <item itemvalue="Application.Server" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Server" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4e106fcd-42d2-4670-aba9-a65260effae7" name="Changes" comment="" />
+      <created>1685103921236</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685103921236</updated>
+      <workItem from="1685103924018" duration="1018000" />
+      <workItem from="1685104978376" duration="6299000" />
+      <workItem from="1685114746761" duration="14281000" />
+      <workItem from="1685150103761" duration="1798000" />
+      <workItem from="1685157814336" duration="36000" />
+      <workItem from="1685168129843" duration="5314000" />
+      <workItem from="1685179509882" duration="4738000" />
+      <workItem from="1685193753026" duration="6440000" />
+    </task>
+    <task id="LOCAL-00001" summary="reuploaded project after fixing bugs">
+      <created>1685104872696</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1685104872696</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="reuploaded project after fixing bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="reuploaded project after fixing bugs" />
+  </component>
+</project>

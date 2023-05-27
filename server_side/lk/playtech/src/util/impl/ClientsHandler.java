@@ -38,7 +38,9 @@ public class ClientsHandler{
     }
 
     private void listeningClientMsg() {
+
         Thread thread = new Thread(() -> {
+            boolean is = false;
 //            String message;
 //            while (true) {
 //                try {
@@ -55,22 +57,14 @@ public class ClientsHandler{
             String message;
             while (true) { //if connected
             try {
-                if(!isImageRecieving){
-                    message = this.dataInputStream.readUTF();
-                    broadcastMsgsToClients(message,this.userName);
-                    if(message.contains("image")){
-                        isImageRecieving =true;
-                    }else{
-                        isImageRecieving = false;
-                    }
-                }else {
+                message = this.dataInputStream.readUTF();
+                System.out.println("line 61");
 
-                    broadcastMsgsToClients("a image Recieved!",this.userName);
-                    System.out.println("image reciving");
-
+                if(message.contains("image")){
+                    isImageRecieving =true;
                     long fileSize = this.dataInputStream.readLong();
 
-                    String fileName = "images/Chat-img-location.png";
+                    String fileName = "client_side/lk/playtech/resources/Shared-Img-Location/Shared-Image.png";
                     FileOutputStream fileOutputStream = new FileOutputStream(fileName);
 
                     // Receive and save the file data
@@ -79,25 +73,26 @@ public class ClientsHandler{
                     long totalBytesRead = 0;
 
                     while (totalBytesRead < fileSize && (bytesRead = this.dataInputStream.read(buffer)) != -1) {
-                      fileOutputStream.write(buffer, 0, bytesRead);
-                      totalBytesRead += bytesRead;
+                        fileOutputStream.write(buffer, 0, bytesRead);
+                        totalBytesRead += bytesRead;
                     }
+                    is =true;
+                    fileOutputStream.close();
+                    buffer=null;
+                    bytesRead=0;
+                    totalBytesRead=0;
+                    fileName=null;
+                    fileSize=0;
 
-                    System.out.println("image recived");
-                    File file = new File(fileName);
-                    broadcastImagesToClients(file, this.userName);
+                    broadcastMsgsToClients("image",this.userName);
 
-                    //send
-
-
-                    isImageRecieving=false;
+                }else{
+                    broadcastMsgsToClients(message,this.userName);
                 }
+
             } catch (IOException e) {
 //                e.printStackTrace();
-                break;
             }
-
-
         }
         });
         thread.start();
@@ -177,16 +172,40 @@ public class ClientsHandler{
         // Send the file size and data to each client
         for (ClientsHandler clientsHandler: clientsHandlerArrayList) {
             if (!clientsHandler.userName.equals(senderUsername)) {
-                try {
-                    System.out.println("************************************************************************************************");
-                    clientsHandler.dataOutputStream.writeUTF("image");
-                    clientsHandler.dataOutputStream.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Thread thread = new Thread(() -> {
+                    try {
+                        clientsHandler.dataOutputStream.writeUTF("image");
+                        clientsHandler.dataOutputStream.flush();
+
+                        // Read the image file
+                        FileInputStream fileInputStream = new FileInputStream(file);
+                        BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+
+                        // Get the file size
+                        long fileSize = file.length();
+
+                        // Send the file size to the server
+                        clientsHandler.dataOutputStream.writeLong(fileSize);
+                        System.out.println("Received file size: " + fileSize);
+
+                        // Send the file data to the server
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        while ((bytesRead = bufferedInputStream.read(buffer)) != -1) {
+                            clientsHandler.dataOutputStream.write(buffer, 0, bytesRead);
+                        }
 
 
-                System.out.println("***sent"+"image");
+                        // Close the streams and socket
+                        bufferedInputStream.close();
+                        clientsHandler.dataOutputStream.flush();
+
+                        System.out.println("***sent"+"image");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                thread.start();
             }
         }
         System.out.println("Image location sent successfully.");

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4e106fcd-42d2-4670-aba9-a65260effae7" name="Changes" comment="implimented image share with clients">
+    <list default="true" id="4e106fcd-42d2-4670-aba9-a65260effae7" name="Changes" comment="fix bugs">
+      <change afterPath="$PROJECT_DIR$/out/production/server_side/util/ClientHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/server_side/util/impl/ClientsHandlerImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server_side/lk/playtech/src/util/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/resources/Shared-Img-Location/Shared-Image.png" beforeDir="false" afterPath="$PROJECT_DIR$/client_side/lk/playtech/resources/Shared-Img-Location/Shared-Image.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/src/util/impl/ClientConnectionImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/client_side/lk/playtech/src/util/impl/ClientConnectionImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/client_side/Shared-Img-Location/Shared-Image.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/Shared-Img-Location/Shared-Image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/client_side/util/impl/ClientConnectionImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/util/impl/ClientConnectionImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/server_side/util/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/server_side/util/Server.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/server_side/util/impl/ClientsHandler.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server_side/lk/playtech/src/util/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server_side/lk/playtech/src/util/Server.java" afterDir="false" />
@@ -51,7 +56,7 @@
       <recent name="D:\IJSE-INP-JavaSocket-GroupChat-Project newest\IJSE-INP-JavaSocket-GroupChat-Project\client_side\lk\playtech\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="AppInitializer" />
       <module name="client_side" />
@@ -93,7 +98,7 @@
       <workItem from="1685179509882" duration="4738000" />
       <workItem from="1685193753026" duration="10479000" />
       <workItem from="1685235316650" duration="4270000" />
-      <workItem from="1685245325236" duration="2302000" />
+      <workItem from="1685245325236" duration="2652000" />
     </task>
     <task id="LOCAL-00001" summary="reuploaded project after fixing bugs">
       <created>1685104872696</created>
@@ -109,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685201028220</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix bugs">
+      <created>1685247992641</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1685247992641</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +142,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="reuploaded project after fixing bugs" />
     <MESSAGE value="implimented image share with clients" />
-    <option name="LAST_COMMIT_MESSAGE" value="implimented image share with clients" />
+    <MESSAGE value="fix bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bugs" />
   </component>
 </project>

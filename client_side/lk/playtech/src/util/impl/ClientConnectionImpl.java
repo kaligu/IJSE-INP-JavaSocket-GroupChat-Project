@@ -19,13 +19,14 @@ import java.net.Socket;
  * Time    : 7:00 PM
  */
 public class ClientConnectionImpl implements ClientConnection {
-    public Socket socket;
-    DataInputStream dataInputStream;
-    DataOutputStream dataOutputStream;
-    private String username;
+
+    public Socket socket;  //client socket
+    DataInputStream dataInputStream; //client's input stream
+    DataOutputStream dataOutputStream; //client's output stream
+    private String username; //client username
 
 
-    public ClientConnectionImpl(Socket socket, String username){
+    public ClientConnectionImpl(Socket socket, String username){ //socket data initialize
         try{
             this.socket = socket;
             this.username = username;
@@ -39,19 +40,18 @@ public class ClientConnectionImpl implements ClientConnection {
     public void clientSendMsgtoServer(String message) {
         Thread thread = new Thread(() -> {
             try {
-                dataOutputStream.writeUTF(username + " : " + message);
+                dataOutputStream.writeUTF(username + " : " + message); //send msg
                 dataOutputStream.flush();
-                System.out.println("***sent"+message);
             } catch (IOException e) {
-                closeEverything();
+                System.out.println("msg sent error");
             }
-
         });
         thread.start();
     }
 
     public void clientSendImgtoServer(File imageFile){
         Thread thread = new Thread(() -> {
+            //send msg to server "image" before read image ready to read image file
             try {
                 dataOutputStream.writeUTF("image");
                 dataOutputStream.flush();
@@ -63,7 +63,7 @@ public class ClientConnectionImpl implements ClientConnection {
             // Get the file size
             long fileSize = imageFile.length();
 
-            // Send the file size to the server
+            // Send the file packet bag size to the server
             dataOutputStream.writeLong(fileSize);
             System.out.println("Received file size: " + fileSize);
 
@@ -71,63 +71,50 @@ public class ClientConnectionImpl implements ClientConnection {
             byte[] buffer = new byte[1024];
             int bytesRead;
             while ((bytesRead = bufferedInputStream.read(buffer)) != -1) {
-                dataOutputStream.write(buffer, 0, bytesRead);
+                dataOutputStream.write(buffer, 0, bytesRead);  //send one by one image's packets
             }
-
 
             // Close the streams and socket
             bufferedInputStream.close();
             dataOutputStream.flush();
 
-                System.out.println("***sent"+"image");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
         thread.start();
-
-
-
     }
 
     public void listentoServerMsgsImgs(VBox vBox){
-
-
         Thread thread = new Thread(() -> {
             while (socket.isConnected()) {
-                boolean isimage = false;
-                long size;
                 String message = null;
+
                 try {
-                    message = dataInputStream.readUTF();
-                    System.out.println("110  "+message);
+                    message = dataInputStream.readUTF();  //read server msgs
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-
-                if(message.contains("image")){
-                    message=username+" : Image Received.";
-                    System.out.println("116path  "+message);
-                    isimage=true;
-                    System.out.println("118path"+message);
-
-                    System.out.println("client rimage recived********************************************");
-                    ChatFormController.receiveImg(vBox, message);
+                if(message.contains("Image")){
+                    ChatFormController.receiveImg(vBox, message); //update at UI
                 }else{
-                    isimage=false;
-                    System.out.println("124path "+message);
-                    ChatFormController.receivemsg(vBox,message);
+                    ChatFormController.receivemsg(vBox,message); //update at UI
                 }
-
-                }
+            }
         });
         thread.start();
     }
 
-    public void closeEverything(){
+    private void closeSocket(){
+        try {
+            if (socket != null ){
+                socket.close();
+            }
 
-
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
 }

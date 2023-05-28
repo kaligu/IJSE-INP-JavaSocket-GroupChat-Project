@@ -6,7 +6,7 @@
 */
 package util;
 
-import util.impl.ClientsHandler;
+import util.impl.ClientsHandlerImpl;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -32,7 +32,8 @@ public class Server {
                 System.out.println("new Client Connected");
                 Thread thread = new Thread(() -> {
                     System.out.println("connected");
-                    ClientsHandler clientsHandler = new ClientsHandler(socket);
+                    ClientsHandlerImpl clientsHandlerImpl = new ClientsHandlerImpl();
+                    clientsHandlerImpl.addClient(socket);
                 });
                 thread.start();
             } catch (IOException e) {

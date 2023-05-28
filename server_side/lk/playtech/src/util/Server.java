@@ -43,7 +43,7 @@ public class Server {
 
     }
 
-    private void closeServer() {
+    public void closeServer() {
         try {
             if (serverSocket != null) {
                 serverSocket.close();

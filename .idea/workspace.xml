@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4e106fcd-42d2-4670-aba9-a65260effae7" name="Changes" comment="reuploaded project after fixing bugs">
-      <change afterPath="$PROJECT_DIR$/client_side/lk/playtech/resources/Shared-Img-Location/Shared-Image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/resources/images/Chat-img-location.png" beforeDir="false" />
+    <list default="true" id="4e106fcd-42d2-4670-aba9-a65260effae7" name="Changes" comment="implimented image share with clients">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/resources/Shared-Img-Location/Shared-Image.png" beforeDir="false" afterPath="$PROJECT_DIR$/client_side/lk/playtech/resources/Shared-Img-Location/Shared-Image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/resources/audio/recieved.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/resources/audio/sent.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/resources/forms/ChatForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/client_side/lk/playtech/resources/forms/ChatForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/resources/images/Chat-img-location11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/src/AppInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client_side/lk/playtech/src/AppInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/src/controller/ChatFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/client_side/lk/playtech/src/controller/ChatFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/src/util/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client_side/lk/playtech/src/util/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_side/lk/playtech/src/util/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client_side/lk/playtech/src/util/impl/ClientConnectionImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController$3.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/controller/ChatFormController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/client_side/util/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/util/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/server_side/util/impl/ClientsHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/server_side/util/impl/ClientsHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_side/lk/playtech/src/util/impl/ClientsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server_side/lk/playtech/src/util/impl/ClientsHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/client_side/forms/ChatForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/client_side/forms/ChatForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/client_side/images/Chat-img-location11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/client_side/util/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/server_side/controller/MainFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/server_side/controller/MainFormController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/server_side/util/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/server_side/util/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/path_to_save_image_file_12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/path_to_save_image_file_15.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_side/lk/playtech/resources/client-cash-memory/Client-Chat-img-location.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_side/lk/playtech/src/controller/MainFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server_side/lk/playtech/src/controller/MainFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_side/lk/playtech/src/util/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server_side/lk/playtech/src/util/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -86,7 +106,8 @@
       <workItem from="1685157814336" duration="36000" />
       <workItem from="1685168129843" duration="5314000" />
       <workItem from="1685179509882" duration="4738000" />
-      <workItem from="1685193753026" duration="6440000" />
+      <workItem from="1685193753026" duration="10479000" />
+      <workItem from="1685235316650" duration="4270000" />
     </task>
     <task id="LOCAL-00001" summary="reuploaded project after fixing bugs">
       <created>1685104872696</created>
@@ -95,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685104872696</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="implimented image share with clients">
+      <created>1685201028220</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1685201028220</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,6 +143,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="reuploaded project after fixing bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="reuploaded project after fixing bugs" />
+    <MESSAGE value="implimented image share with clients" />
+    <option name="LAST_COMMIT_MESSAGE" value="implimented image share with clients" />
   </component>
 </project>

@@ -4,19 +4,12 @@
   @ Date         : 5/23/2023
   @ Time         : 7:00 PM
 */
-package util;
+package util.impl;
 
-import com.sun.security.sasl.ClientFactoryImpl;
 import controller.ChatFormController;
-import javafx.application.Platform;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.ImageViewBuilder;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import util.ClientConnection;
 
-import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
@@ -25,15 +18,14 @@ import java.net.Socket;
  * Date    : 5/23/2023
  * Time    : 7:00 PM
  */
-public class Client {
+public class ClientConnectionImpl implements ClientConnection {
     public Socket socket;
     DataInputStream dataInputStream;
     DataOutputStream dataOutputStream;
     private String username;
 
-    private boolean isImageRecieving = false;
 
-    public Client(Socket socket,String username){
+    public ClientConnectionImpl(Socket socket, String username){
         try{
             this.socket = socket;
             this.username = username;
@@ -42,11 +34,9 @@ public class Client {
         }catch (IOException e){
             e.printStackTrace();
         }
-
-
     }
 
-    public void clientSendMessage(String message) {
+    public void clientSendMsgtoServer(String message) {
         Thread thread = new Thread(() -> {
             try {
                 dataOutputStream.writeUTF(username + " : " + message);
@@ -55,11 +45,12 @@ public class Client {
             } catch (IOException e) {
                 closeEverything();
             }
+
         });
         thread.start();
     }
 
-    public void clientSendImage(File imageFile){
+    public void clientSendImgtoServer(File imageFile){
         Thread thread = new Thread(() -> {
             try {
                 dataOutputStream.writeUTF("image");
@@ -96,9 +87,11 @@ public class Client {
         thread.start();
 
 
+
     }
 
-    public void listenForMessage(VBox vBox){
+    public void listentoServerMsgsImgs(VBox vBox){
+
 
         Thread thread = new Thread(() -> {
             while (socket.isConnected()) {

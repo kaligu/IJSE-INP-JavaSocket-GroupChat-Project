@@ -63,7 +63,7 @@ public class MainFormController {
 
         }else if((btnChangeStatus.getText().equals("Stop"))){  //if true = btn text is "stop"
             System.out.println("Server is Running");
-            server.runServer();
+            server.closeServer();
 
             //notify gui server socket closed
             imgviewstatus.setImage(new Image("images/stopedicon.png"));

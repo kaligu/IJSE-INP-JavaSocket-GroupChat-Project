@@ -1,6 +1,6 @@
 # Live Group Chat
 This is a socket project developed using JavaFX. It demonstrates how to implement a client-server communication using sockets and a graphical user interface using JavaFX.
-
+<iframe width="1108" height="623" src="https://www.youtube.com/embed/J78Rdqfo8Jg" title="javafx Socket Group Chat" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 ## Technologies Used
 - JavaFX
 - Java Socket Programming

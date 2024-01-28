@@ -12,6 +12,7 @@ https://youtu.be/J78Rdqfo8Jg
 - can live share messages
 - can live share emojies
 - add unilimited clients using same post and host
+![chatapp](https://github.com/kaligu/IJSE-INP-JavaSocket-GroupChat-Project/assets/101045808/8b526985-576a-41af-9341-226700168378)
 
 ## screenshots
 ![Screenshot 2023-05-27 213741](https://github.com/kaligu/IJSE-INP-JavaSocket-GroupChat-Project/assets/101045808/f150b6de-8452-45c7-b204-71c1ec438e58)
